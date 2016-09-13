@@ -1,0 +1,62 @@
+<?xml version="1.0"?>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>com.maven.multi</groupId>
+    <artifactId>MavenMulti</artifactId>
+    <version>1.0</version>
+  </parent>
+ 
+  <artifactId>App</artifactId>
+  <packaging>jar</packaging>
+
+
+  <build>
+  <resources>
+           <resource>
+              <directory>src/main/resources</directory>
+	   <filtering>true</filtering>
+         </resource>
+    </resources>
+  <plugins>
+     <plugin>
+        <artifactId>maven-assembly-plugin</artifactId>
+        <configuration combine.self="override">
+           <archive>
+              <manifest>
+                 <addClasspath>true</addClasspath>
+                 <classpathPrefix>lib/</classpathPrefix>
+		 <mainClass>com.maven.multi.App</mainClass>
+              </manifest>
+           </archive>
+           <descriptorRefs>
+              <descriptorRef>jar-with-dependencies</descriptorRef>
+           </descriptorRefs>
+        </configuration>
+        <executions>
+           <execution>
+              <id>make-assembly</id>
+              <phase>package</phase>
+              <goals>
+                 <goal>single</goal>
+              </goals>
+           </execution>
+        </executions>  
+     </plugin>    
+   </plugins>  
+   </build> 
+
+  <dependencies>
+    <dependency>
+      <groupId>com.maven.multi</groupId>
+      <artifactId>model</artifactId>
+      <version>1.0</version>
+    </dependency>
+    <dependency>
+      <groupId>com.maven.multi</groupId>
+      <artifactId>service</artifactId>
+      <version>1.0</version>
+    </dependency>
+  </dependencies>
+</project>

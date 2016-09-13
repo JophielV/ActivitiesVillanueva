@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+        <modelVersion>4.0.0</modelVersion>
+
+        <!-- project coordinates -->
+        <groupId>com.maven.multi</groupId>
+        <artifactId>MavenMulti</artifactId>
+        <version>1.0</version>
+        <packaging>pom</packaging>
+	<name>My Resources Plugin Practice Project</name>
+	<profiles>
+           <profile>
+              <id>Documents</id>
+	      <properties>
+                 <file.path>/home/ecc/Documents/Output.txt</file.path>
+              </properties>	      
+           </profile>
+	</profiles>
+	
+	<properties>
+             <file.path>/usr/local/apache-maven-3.3.9/MavenMulti/App/target/Output.txt</file.path>
+        </properties>
+
+	
+
+	<modules>
+	     <module>model</module>
+	     <module>service</module>
+	     <module>App</module>
+        </modules>	
+	
+
+	<dependencies>
+           <dependency>
+              <groupId>commons-logging</groupId>
+              <artifactId>commons-logging</artifactId>
+               <version>1.2</version>
+           </dependency>
+           <dependency>
+              <groupId>commons-collections</groupId>
+              <artifactId>commons-collections</artifactId>
+              <version>3.2.2</version> 
+            </dependency>
+        </dependencies>
+  
+
+
+</project>
