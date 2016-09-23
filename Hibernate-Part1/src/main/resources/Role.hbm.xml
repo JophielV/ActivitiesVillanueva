@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+ "-//Hibernate/Hibernate Mapping DTD//EN"
+ "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd"> 
+
+<hibernate-mapping package="com.hibernate.part1.model">
+   <class name="Role" table="ROLES">
+
+      <id name="id" type="int" column="Role_Id">
+         <generator class="native"/>
+      </id>
+      <property name="roleName" column="Role_Name" type="string"/>   
+      <list name="persons" table="PERSON_ROLES" cascade="all" lazy="true" fetch="select" inverse="true">
+            <key>
+                <column name="Role_Id" not-null="true" />
+            </key>
+            <list-index column="idx"/>
+            <many-to-many column="Person_Id" class="com.hibernate.part1.model.Person" />
+      </list>
+   </class>
+</hibernate-mapping>
