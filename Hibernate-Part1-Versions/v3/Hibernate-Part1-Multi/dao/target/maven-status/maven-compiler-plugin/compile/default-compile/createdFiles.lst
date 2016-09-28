@@ -1,0 +1,5 @@
+com/hibernate/part1/dao/RolesDAO.class
+com/hibernate/part1/dao/DAO.class
+com/hibernate/part1/dao/PersonDAO.class
+com/hibernate/part1/dao/ContactInfoDAO.class
+com/hibernate/part1/dao/PersonRolesDAO.class

@@ -1,0 +1,5 @@
+/usr/local/apache-maven-3.3.9/Hibernate-Part1-Multi/dao/src/main/java/com/hibernate/part1/dao/PersonDAO.java
+/usr/local/apache-maven-3.3.9/Hibernate-Part1-Multi/dao/src/main/java/com/hibernate/part1/dao/RolesDAO.java
+/usr/local/apache-maven-3.3.9/Hibernate-Part1-Multi/dao/src/main/java/com/hibernate/part1/dao/DAO.java
+/usr/local/apache-maven-3.3.9/Hibernate-Part1-Multi/dao/src/main/java/com/hibernate/part1/dao/PersonRolesDAO.java
+/usr/local/apache-maven-3.3.9/Hibernate-Part1-Multi/dao/src/main/java/com/hibernate/part1/dao/ContactInfoDAO.java
