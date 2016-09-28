@@ -105,6 +105,10 @@ public class App
               case 15:
                  listRoleModule();
                  break;  
+
+              case 16:
+                 searchPersonModule();
+                 break;
         
               case 17:
                    System.out.println("Exiting program .... "); System.exit(0); break;
@@ -116,20 +120,12 @@ public class App
 
     }
 
-    public static void initializeRoles() {
-        RolesDAO r = new RolesDAO();
-        ContactInfoDAO ci = new ContactInfoDAO();   
-	r.save("Project Manager");
-        r.save("Software Engineer");
-        r.save("Developer"); 
-    }
-
     public static void createPersonModule() {
         String lastName = "", firstName = "", middleName = "", suffix = "", title = "", streetNo = "", barangay = "", city = "";
         String currentlyEmployed = "", zipCode = "", birthday = "", gwa = "", dateHired = "";
         boolean holder = true;
         System.out.println("------------------------- Create Person ------------------------");
-        System.out.println("Enter the following information: ");
+        System.out.println("- Notice: Enter the following information for your name: -");
         sc.nextLine();
         while(holder) {
              System.out.print("Last Name: ");
@@ -161,6 +157,7 @@ public class App
              holder = validationService.validateTitle(title);
         }
         holder = true;
+        System.out.println("- Notice: Enter the following address information: -");
         while(holder) { 
               System.out.print("Street No: ");
               streetNo = sc.nextLine();
@@ -185,6 +182,7 @@ public class App
               holder = validationService.validateZipCode(zipCode);
         }
         holder = true;
+        System.out.println("- Notice: Enter the following additional information: -");
         while(holder) {
               System.out.print("Birthday(DD/MM/YYYY): ");
               birthday = sc.nextLine();
@@ -411,6 +409,23 @@ public class App
        }
     }
 
+    public static void searchPersonModule() {
+       sc.nextLine();
+       String id = "";
+       boolean holder = true;
+       boolean holder2 = true;
+       System.out.println("------------------------- Search Person ------------------------");
+       while(holder || !holder2) { 
+          System.out.print("Enter the id of the person to search: ");
+          id = sc.nextLine();
+          holder = validationService.validateId(id);
+          if(holder)  { continue; }
+          holder2 = businessLogicService.checkIfEntityExist(id);
+       }
+       businessLogicService.searchPersonEntity(id);
+       pauseProgram();
+    }
+
     public static void addPersonRoleModule() {
        sc.nextLine();
        String id = "", id2 = "";
@@ -493,27 +508,42 @@ public class App
        System.out.println("0xxxxxxxxxx ");
        System.out.println("+63xxxxxxxxxx ");
        System.out.println("Enter the following information:");
-       while(holder) {
+       
+       boolean addMore = true;
+       String addMoreHolder = "";
+       while(addMore) {  
+          holder = true;
+          while(holder) {
              System.out.print("Land Line No: ");
              landLine = sc.nextLine(); 
              holder = validationService.validateLandLine(landLine);
-       }
-       holder = true;
-       while(holder) {
+          }
+          holder = true;
+          while(holder) {
              System.out.print("Mobile No: ");
              mobileNumber = sc.nextLine(); 
              holder = validationService.validateMobileNumber(mobileNumber);
-       }
-       holder = true;
-       while(holder) {
+          }
+          holder = true;
+          while(holder) {
              System.out.print("Email: ");
              email = sc.nextLine(); 
              holder = validationService.validateEmail(email);
-       }
-       ContactInfo ci = new ContactInfo();
-       ci = businessLogicService.createContactInfoEntity(landLine,mobileNumber,email);
-       businessLogicService.addContactToPerson(id,ci);
-       System.out.println("-------- Notice: Add Contact Success ------");
+          }
+          holder = true;
+          ContactInfo ci = new ContactInfo();
+          ci = businessLogicService.createContactInfoEntity(landLine,mobileNumber,email);
+          businessLogicService.addContactToPerson(id,ci);
+          System.out.println("-------- Notice: Add Contact Success ------");
+
+          while(holder) {               
+              System.out.print("Add more contacts for this user? (Y/N): ");
+              addMoreHolder = sc.nextLine();
+              holder = validationService.validateCurrentlyEmployed(addMoreHolder);
+          }
+          if(addMoreHolder.equals("Y")) { addMore = true; }
+          if(addMoreHolder.equals("N")) { addMore = false; }
+       }   
        pauseProgram();
     }
 
@@ -665,7 +695,6 @@ public class App
            choice = sc.nextInt();
            businessLogicService.listPersons(choice);
        }
-       //businessLogicService.listPersons();
        pauseProgram();
     }
 
@@ -741,7 +770,7 @@ public class App
        System.out.println("(2) List by GWA");
        System.out.println("(3) List by Date Hired");
        System.out.println("(4) List by Last Name");
-       System.out.println("(5) Exit");
+       System.out.println("(5) Back to Main Menu");
     }
 
     public static void pauseProgram() {

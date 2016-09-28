@@ -61,6 +61,7 @@ public class ContactInfoDAO {
         return ci;
     }
 
+
     public void save(ContactInfo contactInfo)  {  
        Session session = sessionFactory.openSession();
        Transaction tx = null;

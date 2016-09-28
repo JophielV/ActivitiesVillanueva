@@ -10,7 +10,7 @@
          <generator class="native"/>
       </id>
       <property name="roleName" column="Role_Name" type="string"/>   
-      <list name="persons" table="PERSON_ROLES" cascade="all" lazy="true" fetch="select" inverse="true">
+      <list name="persons" table="PERSON_ROLES" lazy="true" fetch="select" inverse="true" >
             <key>
                 <column name="Role_Id" not-null="true" />
             </key>

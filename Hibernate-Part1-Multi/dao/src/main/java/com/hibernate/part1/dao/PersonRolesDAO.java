@@ -22,26 +22,47 @@ public class PersonRolesDAO {
     public PersonRolesDAO() {
        try {
          sessionFactory = new Configuration().configure().buildSessionFactory();
-      } catch (Throwable ex) { 
+       } catch (Throwable ex) { 
          System.err.println("Failed to create sessionFactory object." + ex);
          throw new ExceptionInInitializerError(ex); 
-      }
+       } 
     }
 
     public List listPersonRoles() {
         Session session = sessionFactory.openSession();
         Transaction tx = null;
-        List personRoles = new ArrayList();
+        List<PersonRoles> personRoles = new ArrayList<PersonRoles>();
+        try{
+          tx = session.beginTransaction();
+          personRoles = session.createQuery("FROM PersonRoles").list(); 
+          tx.commit();
+        } 
+        catch (HibernateException e) {
+          if (tx!=null) tx.rollback();
+          e.printStackTrace(); 
+        } 
+        finally {
+          session.close(); 
+        }
+        return personRoles;
+    }
+
+    public List getRolesAssociatedWithPerson(Integer id) {
+        Session session = sessionFactory.openSession();
+        Transaction tx = null;
+        List<PersonRoles> personWithRoles = new ArrayList<PersonRoles>();
         try{
          tx = session.beginTransaction();
-         personRoles = session.createQuery("FROM PersonRoles").list(); 
+         Criteria cr = session.createCriteria(PersonRoles.class)
+         .add(Restrictions.eq("personId", id));
+         personWithRoles = cr.list(); 
          tx.commit();
-      }catch (HibernateException e) {
-         if (tx!=null) tx.rollback();
-         e.printStackTrace(); 
-      } finally {
-         session.close(); 
-      }
-      return personRoles;
+         } catch (HibernateException e) {
+             if (tx != null) tx.rollback();
+             e.printStackTrace(); 
+         } finally {
+             session.close(); 
+         }
+         return personWithRoles;
     }
 }

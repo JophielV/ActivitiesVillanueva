@@ -12,6 +12,7 @@ import com.hibernate.part1.model.Role;
 import com.hibernate.part1.model.PersonRoles;
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Restrictions;
+import org.hibernate.Query;
 
 public class RolesDAO {
     SessionFactory sessionFactory;  
@@ -28,7 +29,7 @@ public class RolesDAO {
     public List listRoles() {
         Session session = sessionFactory.openSession();
         Transaction tx = null;
-        List roles = new ArrayList();
+        List<Role> roles = new ArrayList<Role>();
         try{
           tx = session.beginTransaction();
           roles = session.createQuery("FROM Role").list(); 
@@ -104,10 +105,18 @@ public class RolesDAO {
       Transaction tx = null;
       try {
          tx = session.beginTransaction();
-         Role role = (Role)session.get(Role.class, id); 
-         PersonRoles pr = (PersonRoles) session.createCriteria(PersonRoles.class)
-                    .add(Restrictions.eq("roleId", id)).uniqueResult();
-         session.delete(pr);
+         Role role = (Role)session.get(Role.class, id);
+         //List<PersonRoles> pr = new ArrayList<PersonRoles>(); 
+         //pr = session.createQuery("FROM PersonRoles").add(Restrictions.eq("roleId", id)).list();
+         List pr = new ArrayList();
+         
+         pr =  session.createCriteria(PersonRoles.class).add(Restrictions.eq("roleId", id)).list();
+         if(pr.size()!=0) { 
+            for(int i = 0; i < pr.size(); i++) {
+               session.delete(pr.get(i)); 
+            }
+         }
+         
          role.getPersons().clear();
          session.update(role);
          session.delete(role); 
@@ -119,7 +128,7 @@ public class RolesDAO {
       } finally {
          session.close(); 
       }
-   }
+    }
    
 
 }

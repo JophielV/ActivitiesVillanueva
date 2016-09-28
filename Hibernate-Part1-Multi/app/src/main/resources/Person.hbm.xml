@@ -35,7 +35,7 @@
             <one-to-many class="com.hibernate.part1.model.ContactInfo" />
       </list>
 
-      <list name="roles" table="PERSON_ROLES" inverse="false" lazy="true">
+      <list name="roles" table="PERSON_ROLES" inverse="false" lazy="true" fetch="select" cascade="all">
             <key>
                 <column name="Person_Id" not-null="true" />
             </key>

@@ -27,6 +27,8 @@ import com.ibatis.common.jdbc.ScriptRunner;
 import java.io.Reader;
 import java.io.BufferedReader;
 import java.io.*;
+import java.util.stream.Collectors; 
+import java.util.stream.Stream;
 
 
 
@@ -264,6 +266,7 @@ public class BusinessLogicService {
       r.delete(ID);
    }
 
+
    public void listPersons(int choice) {
 
       List<Person> persons = new ArrayList<Person>();
@@ -273,11 +276,8 @@ public class BusinessLogicService {
             break;
          case 2:
             persons = p.listPersonsById();
-            //Comparator<Person> gwaComparator = (o1, o2) -> new Double(o1.getGwa()).compareTo(new Double(o2.getGwa()));
             Collections.sort(persons, 
                         (o1, o2) -> new Double(o1.getGwa()).compareTo(new Double(o2.getGwa())));
-            //Collections.reverse(persons);
-            //Collections.sort(persons, gwaComparator.reverseOrder());
             break;
          case 3:
             persons = p.listPersonsByDateHired();
@@ -287,7 +287,7 @@ public class BusinessLogicService {
             break;
          case 5:
             System.out.println("- Notice: Taking you back to the menu... -");
-            break;
+            return;
          default:
             System.out.println("-- Notice: Not a valid option --");
             return;
@@ -310,33 +310,10 @@ public class BusinessLogicService {
       + "---------------------------------------");
       System.out.println("Record Count: " + persons.size());
     
-   }
-
-   /*
-   public void listPersons() {
-      List persons = p.listPersons();
-    
-      System.out.println("---------------------------------------------------- Persons Table ------------------------------------------"
-      + "---------------------------------------");
-      System.out.println(String.format("%-5s%-35s%-40s%-20s%-7s%-20s%-5s" , "Id", "Name" 
-      , "Address", "Birthday", "GWA", "Date Hired", "Currently Employed"));
-      System.out.println("-------------------------------------------------------------------------------------------------------------"
-      + "---------------------------------------" );
-      for (Iterator iterator = persons.iterator(); iterator.hasNext();) {
-            Person person = (Person) iterator.next(); 
-            String employedStatus = person.getCurrentlyEmployed() ? "Y" : "N";
-            System.out.println(String.format("%-5s%-35s%-40s%-20s%-7s%-20s%-5s" , Integer.toString(person.getId()), person.getName() 
-            , person.getAddress(), person.getBirthday().toString(), Double.toString(person.getGwa()), person.getDateHired().toString() 
-            , employedStatus));
-      }
-      System.out.println("-------------------------------------------------------------------------------------------------------------"
-      + "---------------------------------------");
-      System.out.println("Record Count: " + persons.size());
-   }
-   */  
+   }  
 
    public void listRoles() {
-      List roles = r.listRoles();
+      List<Role> roles = r.listRoles();
     
       System.out.println("------------------------------ Roles Table ----------------------------");
       System.out.println(String.format("%-20s%-20s" , "Role Id", "Role Name" ));
@@ -350,7 +327,7 @@ public class BusinessLogicService {
    }
 
    public void listPersonRoles() {
-      List personRoles = pR.listPersonRoles();
+      List<PersonRoles> personRoles = pR.listPersonRoles();
     
       System.out.println("------------------------------ Person Roles Table ----------------------------");
       System.out.println(String.format("%-20s%-20s" , "Person Id", "Role Id" ));
@@ -364,7 +341,7 @@ public class BusinessLogicService {
    }
 
    public void listContactInfo() {
-      List cinfos = c.listContactInfo();
+      List<ContactInfo> cinfos = c.listContactInfo();
     
       System.out.println("---------------------------------------------- Contact Info Table ---------------------------------");
       System.out.println(String.format("%-20s%-20s%-20s%-20s%-20s" , "Contact Id", "Land Line", "Mobile Number", "Email", "Person Id" ));
@@ -376,5 +353,52 @@ public class BusinessLogicService {
       }
       System.out.println("--------------------------------------------------------------------------------------------");
       System.out.println("Record Count: " + cinfos.size());
+   }
+
+   public void searchPersonEntity(String id) {
+      int ID = Integer.parseInt(id);
+      Person person = p.getPerson(ID);
+      List<ContactInfo> cinfos = c.listContactInfo();
+      //cinfos.stream()
+      cinfos = cinfos.stream().filter(p -> p.getPerson().getId() == ID).collect(Collectors.toList());
+      List<PersonRoles> personRoles = pR.getRolesAssociatedWithPerson(ID);
+
+      System.out.println("--------------------------- Person with id " + ID + " details: ----------------------------");
+      System.out.println("Person Id: " + person.getId() + ", "); 
+      System.out.println("Last Name: " + person.getName().getLastName());
+      System.out.println("First Name: " + person.getName().getFirstName());
+      System.out.println("Middle Name: " + person.getName().getMiddleName());
+      System.out.println("Suffix: " + person.getName().getSuffix());
+      System.out.println("Title: " + person.getName().getTitle());
+      System.out.println("Street No: " + person.getAddress().getStreetNo());
+      System.out.println("Barangay: " + person.getAddress().getBarangay());
+      System.out.println("City: " + person.getAddress().getCity());
+      System.out.println("Zip Code: " + person.getAddress().getZipCode());
+      System.out.println("Birthday: " + person.getBirthday());
+      System.out.println("GWA: " + person.getGwa()); 
+      System.out.println("Date Hired: " + person.getDateHired());
+      String currentlyEmployedHolder = person.getCurrentlyEmployed() ? "Y" : "N";
+      System.out.println("Currently Employed: " + currentlyEmployedHolder);   
+      
+      System.out.println("--------------------------- Person with id " + ID + " contact details: ----------------------------");
+      for (Iterator iterator = cinfos.iterator(); iterator.hasNext();) {
+            ContactInfo ci = (ContactInfo) iterator.next(); 
+            System.out.println("Contact Id: " + ci.getId()); 
+            System.out.println("Land Line: " + ci.getLandLine());
+            System.out.println("Mobile Number: " + ci.getMobileNumber());
+            System.out.println("Email: " + ci.getEmail());
+            System.out.println("Person Id: " + ci.getPerson().getId());
+            System.out.println();
+      }
+      System.out.println("===================================================================================================");
+
+      
+      System.out.println("--------------------------- Person with id " + ID + " roles: ----------------------------");
+      for (Iterator iterator = personRoles.iterator(); iterator.hasNext();) {
+            PersonRoles personRole_ = (PersonRoles) iterator.next(); 
+            System.out.println("Role Id: " + personRole_.getPersonId()); 
+            System.out.println("Person Id: " + personRole_.getRoleId());
+            System.out.println();
+      }
    }
 }
