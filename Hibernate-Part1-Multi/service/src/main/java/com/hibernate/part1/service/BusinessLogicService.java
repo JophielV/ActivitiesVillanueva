@@ -1,5 +1,5 @@
 package com.hibernate.part1.service;
-import com.hibernate.part1.model.InputModel;
+
 import java.util.InputMismatchException;
 import java.util.Date;
 import java.util.Calendar;
@@ -12,10 +12,10 @@ import com.hibernate.part1.model.Name;
 import com.hibernate.part1.model.Person;
 import com.hibernate.part1.model.Role;
 import com.hibernate.part1.model.PersonRoles;
-import com.hibernate.part1.dao.PersonDAO;
-import com.hibernate.part1.dao.RolesDAO;
-import com.hibernate.part1.dao.ContactInfoDAO;
-import com.hibernate.part1.dao.PersonRolesDAO;
+import com.hibernate.part1.dao.implementations.PersonDAO;
+import com.hibernate.part1.dao.implementations.RolesDAO;
+import com.hibernate.part1.dao.implementations.ContactInfoDAO;
+import com.hibernate.part1.dao.implementations.PersonRolesDAO;
 import com.hibernate.part1.service.ValidationService;
 import java.util.Iterator; 
 import java.util.*; 
@@ -33,42 +33,20 @@ import java.util.stream.Stream;
 
 
 public class BusinessLogicService {
-   private static final String DB_DRIVER = "com.mysql.jdbc.Driver"; 
-   private static final String DB_CONNECTION = "jdbc:mysql://localhost:3306/HibernatePart1";
-   private static final String DB_USER = "root";
-   private static final String DB_PASSWORD = "root";
-
    PersonDAO p = new PersonDAO();
    RolesDAO r = new RolesDAO();
    ContactInfoDAO c = new ContactInfoDAO();
    PersonRolesDAO pR = new PersonRolesDAO();
 
    public BusinessLogicService() {}
-
-   public void runSQLScripts() throws ClassNotFoundException,SQLException {
-        String sqlScriptFilePath = "/usr/local/apache-maven-3.3.9/Hibernate-Part1-Multi/scripts/CreatePersonTable.sql";
-        String sqlScriptFilePath2 = "/usr/local/apache-maven-3.3.9/Hibernate-Part1-Multi/scripts/CreateContactInfoTable.sql";
-        String sqlScriptFilePath3 = "/usr/local/apache-maven-3.3.9/Hibernate-Part1-Multi/scripts/CreateRolesTable.sql";
-        String sqlScriptFilePath4 = "/usr/local/apache-maven-3.3.9/Hibernate-Part1-Multi/scripts/CreatePersonRolesTable.sql";
-        try { Class.forName(DB_DRIVER); }
-        catch(ClassNotFoundException e) { }
-        Connection connection = DriverManager.getConnection(DB_CONNECTION, DB_USER,DB_PASSWORD);
-
-        try {
-            ScriptRunner runner = new ScriptRunner(connection, false, false);
-            Reader br = new BufferedReader(new FileReader(sqlScriptFilePath));
-            runner.runScript(br);
-            br = new BufferedReader(new FileReader(sqlScriptFilePath2));
-            runner.runScript(br);
-            br = new BufferedReader(new FileReader(sqlScriptFilePath3));
-            runner.runScript(br);
-            br = new BufferedReader(new FileReader(sqlScriptFilePath4));
-            runner.runScript(br); 
-        }
-        catch (Exception e) {
-                System.out.println("Exception Occoured" + e.getMessage());
-        }     
+ 
+   public BusinessLogicService(String username, String password) {
+      this.p = new PersonDAO(username,password);
+      this.r = new RolesDAO(username,password);
+      this.c = new ContactInfoDAO(username,password);
+      this.pR = new PersonRolesDAO(username,password);
    }
+
  
    public Name createNameEntity(String lastName, String firstName, String middleName, String suffix, String title) {
       Name name = new Name(lastName, firstName, middleName, suffix, title);
@@ -154,64 +132,53 @@ public class BusinessLogicService {
    }
 
    
-   public void updatePersonEntity(String id, String update, int type) {
+   public void updatePersonEntity(String id, Object update, int type) {
       ValidationService validationService = new ValidationService();
       int ID = Integer.parseInt(id);
+      String stringHolder = "";
       switch(type) {
          case 1:
-            p.updateLastName(ID,update);
+            p.update(ID,update,1);
             break;
          case 2:
-            p.updateFirstName(ID,update);
+            p.update(ID,update,2);
             break;
          case 3:
-            p.updateMiddleName(ID,update);
+            p.update(ID,update,3);
             break;
          case 4:
-            p.updateSuffix(ID,update);
+            p.update(ID,update,4);
             break;
          case 5:
-            p.updateTitle(ID,update);
+            p.update(ID,update,5);
+            break;
+         case 6:
+            p.update(ID,update,6);  
             break;
          case 7:
             Date date = new Date();
-            date = validationService.extractDate(update);
-            p.updateBirthday(ID,date);
+            stringHolder = update.toString();
+            date = validationService.extractDate(stringHolder);
+            p.update(ID,date,7);
             break;
          case 8:
-            double GWA = Double.parseDouble(update);
-            p.updateGWA(ID,GWA);
+            p.update(ID,update,8);
             break;
          case 9:
             Date date2 = new Date();
-            date2 = validationService.extractDate(update);
-            p.updateDateHired(ID,date2);
+            stringHolder = update.toString();
+            date2 = validationService.extractDate(stringHolder);
+            p.update(ID,date2,9);
             break;
-         case 10:
-            boolean currEmployed = update.equals("Y") ? true : false;
-            p.updateCurrentlyEmployed(ID,currEmployed);
+         case 10:       
+            p.update(ID,update,10);
+          
       }
    }
 
-   public void updatePersonAddressEntity(String id, String streetNo, String barangay, String city, String zipCode) {    
+   public void updateContactInfoEntity(String id, String update, int choice) {
       int ID = Integer.parseInt(id);
-      int strtNo = Integer.parseInt(streetNo);
-      int zCode = Integer.parseInt(zipCode);
-      Address address = new Address(strtNo, barangay, city, zCode);
-      p.updateAddress(ID,address);
-   }
-
-   public void updateContactInfoEntity(String id, String update, int type) {
-      int ID = Integer.parseInt(id);
-      switch(type) {
-         case 1:
-            c.updateLandLine(ID,update);
-            break;
-         case 2:
-            c.updateMobileNumber(ID,update);
-         case 3:
-            c.updateEmail(ID,update);
-      }
+      c.update(ID,update,choice);
    }
  
    public boolean deleteContactInfoEntity(String id) {
@@ -270,27 +237,16 @@ public class BusinessLogicService {
    public void listPersons(int choice) {
 
       List<Person> persons = new ArrayList<Person>();
-      switch(choice) {
-         case 1:
-            persons = p.listPersonsById();
-            break;
-         case 2:
-            persons = p.listPersonsById();
-            Collections.sort(persons, 
+      persons = p.listPersons(choice);
+
+      if(choice == 2) {
+         Collections.sort(persons, 
                         (o1, o2) -> new Double(o1.getGwa()).compareTo(new Double(o2.getGwa())));
-            break;
-         case 3:
-            persons = p.listPersonsByDateHired();
-            break;
-         case 4:
-            persons = p.listPersonsByLastName();
-            break;
-         case 5:
-            System.out.println("- Notice: Taking you back to the menu... -");
-            return;
-         default:
-            System.out.println("-- Notice: Not a valid option --");
-            return;
+      }
+      if(choice == 5) { return; }
+      if(choice > 5 || choice < 0) {
+              System.out.println("-- Notice: Please enter a valid choice --");
+              return;
       }
 
       System.out.println("---------------------------------------------------- Persons Table ------------------------------------------"

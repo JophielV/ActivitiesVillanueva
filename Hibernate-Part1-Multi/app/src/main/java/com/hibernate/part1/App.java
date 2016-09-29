@@ -6,17 +6,13 @@ import com.hibernate.part1.model.ContactInfo;
 import com.hibernate.part1.model.Name;
 import com.hibernate.part1.model.Person;
 import com.hibernate.part1.model.Role;
-import com.hibernate.part1.model.InputModel;
 import com.hibernate.part1.service.ValidationService;
 import com.hibernate.part1.service.BusinessLogicService;
 import java.util.Date;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.*;
-import com.hibernate.part1.dao.*;
 import java.util.Scanner;
-import com.hibernate.part1.dao.PersonDAO;
-import com.hibernate.part1.dao.ContactInfoDAO;
 import org.hibernate.*;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -25,21 +21,19 @@ import java.sql.Statement;
 import com.ibatis.common.jdbc.ScriptRunner;
 
 
-/**
- * Hello world!
- *
- */
+
 public class App 
 {
     static int mainChoice = 0;
     static Scanner sc = new Scanner(System.in);
-    static PersonDAO p = new PersonDAO();
     static ValidationService validationService = new ValidationService();
     static BusinessLogicService businessLogicService = new BusinessLogicService();
-    static ContactInfoDAO ci = new ContactInfoDAO();
+
     public static void main( String[] args ) throws ClassNotFoundException,SQLException
     {      
-        businessLogicService.runSQLScripts();
+        //System.out.println("Argument: " + args[0] + ", " + args[1]);
+        businessLogicService = new BusinessLogicService(args[0], args[1]);
+        //businessLogicService.runSQLScripts();
         
         System.out.println("--------------------- Welcome to Hibernate-Part1 Program!------------------");
 
@@ -252,10 +246,21 @@ public class App
                holder2 = businessLogicService.checkIfEntityExist(id);
        }
        pauseProgram();
-       while(subChoice != 11) {
+       while(subChoice != 13) {
+           holder = true;
            displayUpdateChoice();
-           System.out.print("Enter your choice: ");
-           subChoice = sc.nextInt();
+           while(holder) {
+              System.out.print("Enter your choice: ");
+              try {
+                 subChoice = sc.nextInt();
+                 holder = false;
+              }
+              catch(InputMismatchException e) { 
+                 System.out.println("- Notice: Invalid Input -"); 
+                 holder = true;
+                 sc.next();
+              }
+           }
            switchCaseUpdateField(subChoice,id);
        }
     }
@@ -351,7 +356,9 @@ public class App
                 zipCode = sc.nextLine(); 
                 holder = validationService.validateZipCode(zipCode);
              }
-             businessLogicService.updatePersonAddressEntity(id,streetNo,barangay,city,zipCode);
+             Address address2 = new Address();  
+             address2 = businessLogicService.createAddressEntity(streetNo,barangay,city,zipCode);
+             businessLogicService.updatePersonEntity(id,address2,6);
              System.out.println("-------- Notice: Update Success ------"); 
              pauseProgram(); 
              break;
@@ -403,8 +410,18 @@ public class App
              System.out.println("-------- Notice: Update Success ------");
              pauseProgram(); 
              break;
+          case 11:
+             addContactToPersonUnderUpdateModule(id);
+             System.out.println("-------- Notice: Add contact Success ------");
+             break;
+          case 12:
+             addPersonRoleUnderUpdateModule(id);
+             System.out.println("-------- Notice: Add role success ------");
+             break;
+          case 13:
+             System.out.println("- Notice: Taking you back to the menu -");
           default:
-             System.out.println("Taking you back to the Main Menu....");
+             System.out.println("- Notice: Please enter a valid choice.... -");
              pauseProgram();   
        }
     }
@@ -440,6 +457,25 @@ public class App
           holder2 = businessLogicService.checkIfEntityExist(id);
        }
        holder = true; holder2 = true;
+       while(holder || !holder2) { 
+          System.out.print("Enter the id of the role to add for the person: ");
+          id2 = sc.nextLine();
+          holder = validationService.validateId(id2);
+          if(holder)  { continue; }
+          holder2 = businessLogicService.checkIfEntityRoleExist(id2);
+       }  
+       Role role = new Role();
+       role = businessLogicService.getRoleEntity(id2);      
+       businessLogicService.addRoleToPerson(id,role);  
+       pauseProgram();
+    }
+
+    public static void addPersonRoleUnderUpdateModule(String id) {
+       sc.nextLine();
+       String id2 = "";
+       boolean holder = true;
+       boolean holder2 = true;
+       System.out.println("------------------------- Add Person Role ------------------------");
        while(holder || !holder2) { 
           System.out.print("Enter the id of the role to add for the person: ");
           id2 = sc.nextLine();
@@ -547,6 +583,63 @@ public class App
        pauseProgram();
     }
 
+    public static void addContactToPersonUnderUpdateModule(String id) {
+       String landLine = "", mobileNumber = "", email = "";
+       //String id = "";
+       boolean holder = true;
+       boolean holder2 = true;
+       sc.nextLine();
+
+       System.out.println("-------------------- Add Contact ----------------------");
+       System.out.println("- Notice: The following format are accepted for Land Line field: ");
+       System.out.println("xxx-xxxx");
+       System.out.println("0-xx-xxx-xxxx");
+       System.out.println("0-2-xxx-xxxx");
+       System.out.println("011-63-2-xxx-xxxx");
+       System.out.println("011-63-xx-xxx-xxxx");
+       System.out.println("- Notice: The following format are accepted for Mobile number field: ");
+       System.out.println("0xxxxxxxxxx ");
+       System.out.println("+63xxxxxxxxxx ");
+       System.out.println("Enter the following information:");
+       
+       boolean addMore = true;
+       String addMoreHolder = "";
+       while(addMore) {  
+          holder = true;
+          while(holder) {
+             System.out.print("Land Line No: ");
+             landLine = sc.nextLine(); 
+             holder = validationService.validateLandLine(landLine);
+          }
+          holder = true;
+          while(holder) {
+             System.out.print("Mobile No: ");
+             mobileNumber = sc.nextLine(); 
+             holder = validationService.validateMobileNumber(mobileNumber);
+          }
+          holder = true;
+          while(holder) {
+             System.out.print("Email: ");
+             email = sc.nextLine(); 
+             holder = validationService.validateEmail(email);
+          }
+          holder = true;
+          ContactInfo ci = new ContactInfo();
+          ci = businessLogicService.createContactInfoEntity(landLine,mobileNumber,email);
+          businessLogicService.addContactToPerson(id,ci);
+          System.out.println("-------- Notice: Add Contact Success ------");
+
+          while(holder) {               
+              System.out.print("Add more contacts for this user? (Y/N): ");
+              addMoreHolder = sc.nextLine();
+              holder = validationService.validateCurrentlyEmployed(addMoreHolder);
+          }
+          if(addMoreHolder.equals("Y")) { addMore = true; }
+          if(addMoreHolder.equals("N")) { addMore = false; }
+       }   
+       pauseProgram();
+    }
+
     public static void updateContactModule() {
        String id = "";
        boolean holder = true;
@@ -563,9 +656,20 @@ public class App
        }
        pauseProgram();
        while(subChoice != 4) {
+          holder = true;
           displayUpdateCiChoice();
-          System.out.print("Enter your choice: ");
-          subChoice = sc.nextInt();
+          while(holder) {
+             System.out.print("Enter your choice: ");
+             try { 
+                subChoice = sc.nextInt();
+                holder = false;
+             }
+             catch(InputMismatchException e) { 
+                System.out.println("- Notice: Invalid Input -"); 
+                holder = true;
+                sc.next();
+             }
+          }
           switchCaseUpdateCiField(subChoice,id);
        }
     }
@@ -689,10 +793,23 @@ public class App
        System.out.println("");
        sc.nextLine();
        int choice = 0;
+       boolean holder = true;
        while(choice != 5) {
-           displayListChoice(); 
-           System.out.print("Enter your choice: ");
-           choice = sc.nextInt();
+           holder = true;
+           displayListChoice();
+           while(holder) { 
+              System.out.print("Enter your choice: ");
+              try {
+                 choice = sc.nextInt();
+                 holder = false;
+              }
+              catch(InputMismatchException e) {
+                 System.out.println("- Notice: Invalid Input -");
+                 sc.next();
+                 holder = true;
+              }     
+           }
+           //pauseProgram();
            businessLogicService.listPersons(choice);
        }
        pauseProgram();
@@ -736,9 +853,20 @@ public class App
         System.out.println("(16) Search Person");
         System.out.println("(17) Exit");
         System.out.println("----------------------------------------------------------------------");
-        System.out.print("Enter your choice: ");
-        mainChoice = sc.nextInt();
-       
+        boolean holder = true;
+        while(holder) {
+           System.out.print("Enter your choice: ");
+           try {
+              mainChoice = sc.nextInt(); 
+              holder = false;
+           }
+           catch(InputMismatchException e) { 
+              System.out.println("- Notice: Invalid Input -");
+              holder = true;
+              sc.next();
+           }
+        }
+        
     }
 
     public static void displayUpdateChoice() {
@@ -753,7 +881,9 @@ public class App
        System.out.println("(8) GWA");
        System.out.println("(9) Date Hired");
        System.out.println("(10) Currently Employed");
-       System.out.println("(11) Back to Main Menu");
+       System.out.println("(11) Add contacts");
+       System.out.println("(12) Add role");
+       System.out.println("(13) Back to Main Menu");
     } 
 
     public static void displayUpdateCiChoice() {

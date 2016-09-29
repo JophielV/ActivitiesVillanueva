@@ -14,8 +14,8 @@
            <module>dao</module>
            <module>service</module>
            <module>app</module>
-        </modules>	
-	
+        </modules>		
+
         <build>
            <plugins>
                <plugin>

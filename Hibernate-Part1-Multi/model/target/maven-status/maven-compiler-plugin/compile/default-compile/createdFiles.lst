@@ -4,4 +4,3 @@ com/hibernate/part1/model/Address.class
 com/hibernate/part1/model/Name.class
 com/hibernate/part1/model/Role.class
 com/hibernate/part1/model/PersonRoles.class
-com/hibernate/part1/model/InputModel.class

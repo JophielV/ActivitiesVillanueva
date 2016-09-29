@@ -1,5 +1,5 @@
 package com.hibernate.part1.service;
-import com.hibernate.part1.model.InputModel;
+
 import java.util.InputMismatchException;
 import java.util.Date;
 import java.util.Calendar;

@@ -6,41 +6,41 @@
 <hibernate-mapping package="com.hibernate.part1.model">
    <class name="Person" table="PERSON">
 
-      <id name="id" type="int" column="Person_Id">
+      <id name="id" type="int" column="PersonId">
          <generator class="native"/>
       </id>
       <component name="name" class="com.hibernate.part1.model.Name">
-          <property name="lastName" column="Last_Name" type="string"/>
-          <property name="firstName" column="First_Name" type="string"/>
-          <property name="middleName" column="Middle_Name" type="string"/>
+          <property name="lastName" column="LastName" type="string"/>
+          <property name="firstName" column="FirstName" type="string"/>
+          <property name="middleName" column="MiddleName" type="string"/>
           <property name="suffix" column="Suffix" type="string"/>
           <property name="title" column="Title" type="string"/>
       </component>
  
       <component name="address" class="com.hibernate.part1.model.Address">
-          <property name="streetNo" column="Street_No" type="int"/>
+          <property name="streetNo" column="StreetNo" type="int"/>
           <property name="barangay" column="Barangay" type="string"/>
           <property name="city" column="City" type="string"/>
-          <property name="zipCode" column="Zip_Code" type="int"/>
+          <property name="zipCode" column="ZipCode" type="int"/>
       </component>
 
       <property name="birthday" column="Birthday" type="date"/>
       <property name="gwa" column="GWA" type="double"/>
-      <property name="dateHired" column="Date_Hired" type="date"/>
-      <property name="currentlyEmployed" column="Currently_Employed" type="yes_no"/>      
+      <property name="dateHired" column="DateHired" type="date"/>
+      <property name="currentlyEmployed" column="CurrentlyEmployed" type="yes_no"/>      
 
       <list name="contactInfo" table="CONTACT_INFO" cascade="all" inverse="true" lazy="true" fetch="select">
-            <key column="Person_id" not-null="true"/>
+            <key column="PersonId" not-null="true"/>
 	    <list-index column="idx"/>
             <one-to-many class="com.hibernate.part1.model.ContactInfo" />
       </list>
 
       <list name="roles" table="PERSON_ROLES" inverse="false" lazy="true" fetch="select" cascade="all">
             <key>
-                <column name="Person_Id" not-null="true" />
+                <column name="PersonId" not-null="true" />
             </key>
             <list-index column="idx"/>
-            <many-to-many column="Role_Id" class="com.hibernate.part1.model.Role" />
+            <many-to-many column="RoleId" class="com.hibernate.part1.model.Role" />
       </list>
    </class>
 
