@@ -6,8 +6,8 @@
 <hibernate-mapping package="com.hibernate.part1.model">
    <class name="PersonRoles" table="PERSON_ROLES">
       <composite-id>
-         <key-property name = "personId" column="PersonId" type="int" />
-         <key-property name = "roleId" column="RoleId" type="int"/>
+         <key-property name = "personId" column="person_id" type="int" />
+         <key-property name = "roleId" column="role_id" type="int"/>
       </composite-id>   
    </class>
 </hibernate-mapping>

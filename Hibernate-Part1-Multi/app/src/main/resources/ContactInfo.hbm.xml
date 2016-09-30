@@ -6,14 +6,13 @@
 <hibernate-mapping package="com.hibernate.part1.model">
    <class name="ContactInfo" table="CONTACT_INFO">
 
-      <id name="id" type="int" column="ContactId" >
+      <id name="id" type="int" column="contact_id" >
          <generator class="native"/>
       </id>
-      <property name="landLine" column="LandLine" type="string"/>   
-      <property name="mobileNumber" column="MobileNumber" type="string"/>     
-      <property name="email" column="Email" type="string"/>  
+      <property name="type" column="type" type="string"/>   
+      <property name="information" column="information" type="string"/>     
 
-      <many-to-one name="person" column="PersonId" class="com.hibernate.part1.model.Person" not-null="true" fetch="select"/>
+      <many-to-one name="person" column="person_id" class="com.hibernate.part1.model.Person" not-null="true" fetch="select"/>
    
    </class>
 </hibernate-mapping>

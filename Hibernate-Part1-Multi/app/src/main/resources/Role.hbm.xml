@@ -6,16 +6,16 @@
 <hibernate-mapping package="com.hibernate.part1.model">
    <class name="Role" table="ROLES">
 
-      <id name="id" type="int" column="RoleId">
+      <id name="id" type="int" column="role_id">
          <generator class="native"/>
       </id>
-      <property name="roleName" column="RoleName" type="string"/>   
+      <property name="roleName" column="role_name" type="string"/>   
       <list name="persons" table="PERSON_ROLES" lazy="true" fetch="select" inverse="true" >
             <key>
-                <column name="RoleId" not-null="true" />
+                <column name="role_id" not-null="true" />
             </key>
             <list-index column="idx"/>
-            <many-to-many column="PersonId" class="com.hibernate.part1.model.Person" />
+            <many-to-many column="person_id" class="com.hibernate.part1.model.Person" />
       </list>
    </class>
 </hibernate-mapping>
