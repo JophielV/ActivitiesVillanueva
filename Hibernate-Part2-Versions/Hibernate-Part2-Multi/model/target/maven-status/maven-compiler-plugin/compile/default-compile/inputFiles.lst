@@ -1,0 +1,7 @@
+/usr/local/apache-maven-3.3.9/Hibernate-Part2-Multi/model/src/main/java/com/hibernate/part2/model/Name.java
+/usr/local/apache-maven-3.3.9/Hibernate-Part2-Multi/model/src/main/java/com/hibernate/part2/model/PersonRoleEmbedded.java
+/usr/local/apache-maven-3.3.9/Hibernate-Part2-Multi/model/src/main/java/com/hibernate/part2/model/Address.java
+/usr/local/apache-maven-3.3.9/Hibernate-Part2-Multi/model/src/main/java/com/hibernate/part2/model/Person.java
+/usr/local/apache-maven-3.3.9/Hibernate-Part2-Multi/model/src/main/java/com/hibernate/part2/model/PersonRoles.java
+/usr/local/apache-maven-3.3.9/Hibernate-Part2-Multi/model/src/main/java/com/hibernate/part2/model/Role.java
+/usr/local/apache-maven-3.3.9/Hibernate-Part2-Multi/model/src/main/java/com/hibernate/part2/model/ContactInfo.java

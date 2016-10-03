@@ -1,0 +1,7 @@
+com/hibernate/part2/model/Person.class
+com/hibernate/part2/model/Name.class
+com/hibernate/part2/model/PersonRoleEmbedded.class
+com/hibernate/part2/model/PersonRoles.class
+com/hibernate/part2/model/Role.class
+com/hibernate/part2/model/Address.class
+com/hibernate/part2/model/ContactInfo.class
