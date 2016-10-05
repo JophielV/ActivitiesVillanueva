@@ -1,0 +1,8 @@
+com/hibernate/part2/dao/implementations/PersonDAO.class
+com/hibernate/part2/dao/implementations/RolesDAO.class
+com/hibernate/part2/dao/interfaces/RolesDaoInterface.class
+com/hibernate/part2/dao/implementations/PersonRolesDAO.class
+com/hibernate/part2/dao/implementations/ContactInfoDAO.class
+com/hibernate/part2/dao/interfaces/ContactInfoDaoInterface.class
+com/hibernate/part2/dao/interfaces/PersonRolesDaoInterface.class
+com/hibernate/part2/dao/interfaces/PersonDaoInterface.class
