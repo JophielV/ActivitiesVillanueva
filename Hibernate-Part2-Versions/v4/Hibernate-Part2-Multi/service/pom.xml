@@ -7,18 +7,18 @@
     <artifactId>Hibernate-Part2-Multi</artifactId>
     <version>1.0</version>
   </parent>
-  <artifactId>dao</artifactId>
+  <artifactId>service</artifactId>
   <packaging>jar</packaging> 
-
+   
   <dependencies>
     <dependency>
       <groupId>com.hibernate.part2</groupId>
-      <artifactId>util</artifactId>
+      <artifactId>model</artifactId>
       <version>1.0</version>
     </dependency>
     <dependency>
       <groupId>com.hibernate.part2</groupId>
-      <artifactId>model</artifactId>
+      <artifactId>dao</artifactId>
       <version>1.0</version>
     </dependency>
   </dependencies>
