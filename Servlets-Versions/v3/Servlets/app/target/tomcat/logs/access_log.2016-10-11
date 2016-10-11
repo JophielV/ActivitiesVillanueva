@@ -1,0 +1,14 @@
+127.0.0.1 - - [11/Oct/2016:16:30:07 +0800] "GET /app HTTP/1.1" 302 - http-bio-8080-exec-1 0
+127.0.0.1 - - [11/Oct/2016:16:30:44 +0800] "GET /app/ HTTP/1.1" 200 4124 http-bio-8080-exec-2 36074
+127.0.0.1 - - [11/Oct/2016:16:30:44 +0800] "GET /js/bootstrap.min.js HTTP/1.1" 404 - http-bio-8080-exec-3 0
+127.0.0.1 - - [11/Oct/2016:16:30:50 +0800] "GET /app/Person?id=2&utility=com.service.BusinessLogicService@a2767f HTTP/1.1" 200 569 http-bio-8080-exec-4 2032
+127.0.0.1 - - [11/Oct/2016:16:30:50 +0800] "GET /js/bootstrap.min.js HTTP/1.1" 404 - http-bio-8080-exec-5 0
+127.0.0.1 - - [11/Oct/2016:16:40:14 +0800] "GET /app HTTP/1.1" 302 - http-bio-8080-exec-1 0
+127.0.0.1 - - [11/Oct/2016:16:40:44 +0800] "GET /app/ HTTP/1.1" 200 4125 http-bio-8080-exec-2 28843
+127.0.0.1 - - [11/Oct/2016:16:40:44 +0800] "GET /js/bootstrap.min.js HTTP/1.1" 404 - http-bio-8080-exec-4 0
+127.0.0.1 - - [11/Oct/2016:16:40:45 +0800] "GET /favicon.ico HTTP/1.1" 404 - http-bio-8080-exec-5 0
+127.0.0.1 - - [11/Oct/2016:16:41:02 +0800] "GET /app/Person?id=2&utility=com.service.BusinessLogicService@1a8ddc5 HTTP/1.1" 200 569 http-bio-8080-exec-6 8107
+127.0.0.1 - - [11/Oct/2016:16:41:02 +0800] "GET /js/bootstrap.min.js HTTP/1.1" 404 - http-bio-8080-exec-7 0
+127.0.0.1 - - [11/Oct/2016:16:42:58 +0800] "GET /app/Person?id=2&utility=com.service.BusinessLogicService@1a8ddc5 HTTP/1.1" 500 3147 http-bio-8080-exec-10 1389
+127.0.0.1 - - [11/Oct/2016:16:43:16 +0800] "GET /app/Person?id=2&utility=com.service.BusinessLogicService@1a8ddc5 HTTP/1.1" 200 652 http-bio-8080-exec-2 678
+127.0.0.1 - - [11/Oct/2016:16:43:16 +0800] "GET /js/bootstrap.min.js HTTP/1.1" 404 - http-bio-8080-exec-4 0
