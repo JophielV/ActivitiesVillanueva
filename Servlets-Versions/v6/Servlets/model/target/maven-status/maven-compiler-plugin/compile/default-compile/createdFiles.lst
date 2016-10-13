@@ -1,0 +1,7 @@
+com/model/Address.class
+com/model/Name.class
+com/model/Role.class
+com/model/PersonRoleEmbedded.class
+com/model/PersonRoles.class
+com/model/ContactInfo.class
+com/model/Person.class
