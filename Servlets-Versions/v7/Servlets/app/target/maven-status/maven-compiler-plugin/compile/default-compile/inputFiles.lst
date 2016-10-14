@@ -1,0 +1,5 @@
+/usr/local/apache-maven-3.3.9/Servlets/app/src/main/java/com/servlets/ContactInfoServlet/ContactInfoServlet.java
+/usr/local/apache-maven-3.3.9/Servlets/app/src/main/java/com/servlets/LoginServlet/LoginServlet.java
+/usr/local/apache-maven-3.3.9/Servlets/app/src/main/java/com/servlets/RoleServlet/RoleServlet.java
+/usr/local/apache-maven-3.3.9/Servlets/app/src/main/java/com/servlets/PersonServlet/PersonServlet.java
+/usr/local/apache-maven-3.3.9/Servlets/app/src/main/java/com/servlets/PersonRoleServlet/PersonRoleServlet.java

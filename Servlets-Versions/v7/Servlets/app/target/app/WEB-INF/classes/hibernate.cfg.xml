@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC
+"-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+ <session-factory>
+  
+    <property name="connection.url">jdbc:mysql://localhost:3306/HibernatePart1</property>
+    <property name="connection.driver_class">com.mysql.jdbc.Driver</property>
+    <property name="dialect">org.hibernate.dialect.MySQLDialect</property>
+    <property name="hibernate.hbm2ddl.auto">update</property>
+   
+    
+    <property name="connection.pool_size">10</property>
+    <property name="hibernate.cache.use_second_level_cache">true</property>
+    <property name="hibernate.cache.provider_class">
+      org.hibernate.cache.EhCacheProvider
+   </property>
+    <property name="hibernate.cache.region.factory_class">org.hibernate.cache.ehcache.SingletonEhCacheRegionFactory</property>  
+
+    <mapping class="com.model.Person"/>
+    <mapping class="com.model.ContactInfo"/>
+    <mapping class="com.model.Role"/>
+    <mapping class="com.model.PersonRoles"/>
+
+</session-factory>
+</hibernate-configuration>
