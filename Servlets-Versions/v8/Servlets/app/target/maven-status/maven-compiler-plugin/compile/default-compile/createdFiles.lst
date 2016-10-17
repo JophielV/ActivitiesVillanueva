@@ -1,0 +1,5 @@
+com/servlets/ContactInfoServlet/ContactInfoServlet.class
+com/servlets/PersonRoleServlet/PersonRoleServlet.class
+com/servlets/LoginServlet/LoginServlet.class
+com/servlets/RoleServlet/RoleServlet.class
+com/servlets/PersonServlet/PersonServlet.class

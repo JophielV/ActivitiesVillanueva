@@ -1,0 +1,55 @@
+<!DOCTYPE web-app PUBLIC
+ "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
+ "http://java.sun.com/dtd/web-app_2_3.dtd" >
+
+<web-app>
+  <servlet>
+     <servlet-name>LoginServlet</servlet-name>
+     <servlet-class>com.servlets.LoginServlet.LoginServlet</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+     <servlet-name>LoginServlet</servlet-name>
+     <url-pattern>/</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+     <servlet-name>PersonServlet</servlet-name>
+     <servlet-class>com.servlets.PersonServlet.PersonServlet</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+     <servlet-name>PersonServlet</servlet-name>
+     <url-pattern>/Person</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+     <servlet-name>ContactInfoServlet</servlet-name>
+     <servlet-class>com.servlets.ContactInfoServlet.ContactInfoServlet</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+     <servlet-name>ContactInfoServlet</servlet-name>
+     <url-pattern>/ContactInfo</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+     <servlet-name>RoleServlet</servlet-name>
+     <servlet-class>com.servlets.RoleServlet.RoleServlet</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+     <servlet-name>RoleServlet</servlet-name>
+     <url-pattern>/Role</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+     <servlet-name>PersonRoleServlet</servlet-name>
+     <servlet-class>com.servlets.PersonRoleServlet.PersonRoleServlet</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+     <servlet-name>PersonRoleServlet</servlet-name>
+     <url-pattern>/PersonRole</url-pattern>
+  </servlet-mapping>
+</web-app>
