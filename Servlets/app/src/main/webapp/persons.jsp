@@ -95,7 +95,7 @@
             <%
                BusinessLogicService service = (BusinessLogicService) request.getAttribute("service");
                request.getSession().setAttribute("service", service);
-               List<Person> list = service.listPersons(1);
+               List<Person> list = service.getPersonsList();
                for (Person p : list) {
                String holder = p.getCurrentlyEmployed() == true ? "Y" : "N";
             %>
