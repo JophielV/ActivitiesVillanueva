@@ -14,15 +14,15 @@ public interface ContactInfoDaoInterface {
 
    public List listContactInfo();
    
-   public List listContactInfo(Integer id);
+   public List listContactInfo(int id);
 
-   public ContactInfo getContactInfo(Integer id, Integer id2);
+   public ContactInfo getContactInfo(int id, int id2);
 
    public void save(ContactInfo contactInfo);
 
-   public void update(Integer id, String update);
+   public void update(int id, String update);
 
-   public void delete(Integer id);
+   public void delete(int id);
 
    
   
