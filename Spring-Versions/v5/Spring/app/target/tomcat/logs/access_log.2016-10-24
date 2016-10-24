@@ -1,0 +1,16 @@
+127.0.0.1 - - [24/Oct/2016:10:21:41 +0800] "GET /app HTTP/1.1" 302 - http-bio-9090-exec-1 0
+127.0.0.1 - - [24/Oct/2016:10:21:48 +0800] "GET /app/ HTTP/1.1" 200 156 http-bio-9090-exec-2 6295
+127.0.0.1 - - [24/Oct/2016:10:21:53 +0800] "GET /app/Home/ HTTP/1.1" 200 328 http-bio-9090-exec-3 2066
+127.0.0.1 - - [24/Oct/2016:10:21:59 +0800] "GET /app/Next/ HTTP/1.1" 200 308 http-bio-9090-exec-4 3039
+127.0.0.1 - - [24/Oct/2016:10:22:04 +0800] "GET /app/Home/ HTTP/1.1" 200 328 http-bio-9090-exec-5 68
+127.0.0.1 - - [24/Oct/2016:10:22:10 +0800] "GET /app/ HTTP/1.1" 200 156 http-bio-9090-exec-6 33
+127.0.0.1 - - [24/Oct/2016:10:22:16 +0800] "GET /app/admin HTTP/1.1" 302 - http-bio-9090-exec-7 61
+127.0.0.1 - - [24/Oct/2016:10:22:17 +0800] "GET /app/login HTTP/1.1" 200 1294 http-bio-9090-exec-8 736
+127.0.0.1 - - [24/Oct/2016:10:22:25 +0800] "GET /app/admin HTTP/1.1" 302 - http-bio-9090-exec-9 59
+127.0.0.1 - - [24/Oct/2016:10:22:25 +0800] "GET /app/login HTTP/1.1" 200 1294 http-bio-9090-exec-10 19
+127.0.0.1 - - [24/Oct/2016:10:22:33 +0800] "POST /app/login HTTP/1.1" 302 - http-bio-9090-exec-1 125
+127.0.0.1 - - [24/Oct/2016:10:22:34 +0800] "GET /app/admin HTTP/1.1" 200 494 http-bio-9090-exec-1 676
+127.0.0.1 - - [24/Oct/2016:10:22:40 +0800] "GET /app/hello HTTP/1.1" 404 949 http-bio-9090-exec-3 46
+127.0.0.1 - - [24/Oct/2016:10:22:47 +0800] "GET /app/ HTTP/1.1" 200 530 http-bio-9090-exec-4 40
+127.0.0.1 - - [24/Oct/2016:10:23:15 +0800] "POST /app/logout HTTP/1.1" 302 - http-bio-9090-exec-5 5
+127.0.0.1 - - [24/Oct/2016:10:23:15 +0800] "GET /app/login?logout HTTP/1.1" 200 1362 http-bio-9090-exec-5 14
