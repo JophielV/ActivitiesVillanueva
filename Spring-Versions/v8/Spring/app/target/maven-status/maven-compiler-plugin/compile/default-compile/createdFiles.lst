@@ -1,0 +1,4 @@
+com/controller/MainController.class
+com/controller/PersonController.class
+com/config/core/SpringWebAppInitializer.class
+com/config/core/SpringSecurityInitializer.class
