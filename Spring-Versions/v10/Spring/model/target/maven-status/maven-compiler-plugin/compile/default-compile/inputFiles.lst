@@ -1,0 +1,9 @@
+/usr/local/apache-maven-3.3.9/Spring/model/src/main/java/com/model/Name.java
+/usr/local/apache-maven-3.3.9/Spring/model/src/main/java/com/model/Person.java
+/usr/local/apache-maven-3.3.9/Spring/model/src/main/java/com/model/Role.java
+/usr/local/apache-maven-3.3.9/Spring/model/src/main/java/com/model/ContactInfo.java
+/usr/local/apache-maven-3.3.9/Spring/model/src/main/java/com/model/PersonRoleEmbedded.java
+/usr/local/apache-maven-3.3.9/Spring/model/src/main/java/com/model/User.java
+/usr/local/apache-maven-3.3.9/Spring/model/src/main/java/com/model/UserRole.java
+/usr/local/apache-maven-3.3.9/Spring/model/src/main/java/com/model/Address.java
+/usr/local/apache-maven-3.3.9/Spring/model/src/main/java/com/model/PersonRoles.java
