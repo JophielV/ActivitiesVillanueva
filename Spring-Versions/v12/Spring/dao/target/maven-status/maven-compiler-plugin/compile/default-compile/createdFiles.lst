@@ -1,0 +1,10 @@
+com/dao/interfaces/ContactInfoDaoInterface.class
+com/dao/implementations/UserDAO.class
+com/dao/implementations/PersonRolesDAO.class
+com/dao/interfaces/RolesDaoInterface.class
+com/dao/interfaces/UserDaoInterface.class
+com/dao/interfaces/PersonDaoInterface.class
+com/dao/implementations/PersonDAO.class
+com/dao/interfaces/PersonRolesDaoInterface.class
+com/dao/implementations/ContactInfoDAO.class
+com/dao/implementations/RolesDAO.class
