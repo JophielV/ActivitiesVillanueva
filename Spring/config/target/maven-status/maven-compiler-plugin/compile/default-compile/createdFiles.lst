@@ -1,3 +1,2 @@
 com/config/SecurityConfig.class
-com/config/ClassWiringConfig.class
-com/config/DataWiringConfig.class
+com/config/MainConfig.class

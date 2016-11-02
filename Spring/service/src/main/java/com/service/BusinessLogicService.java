@@ -36,6 +36,7 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.proxy.HibernateProxy;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import com.dao.interfaces.PersonDaoInterface;
@@ -44,20 +45,20 @@ import com.dao.interfaces.PersonRolesDaoInterface;
 import com.dao.interfaces.RolesDaoInterface;
 import com.dao.interfaces.UserDaoInterface;
 
-
+@Service
 public class BusinessLogicService {
 
    @Autowired  
-   private PersonDaoInterface p;
+   private PersonDaoInterface personDao;
 
    @Autowired
-   private ContactInfoDaoInterface c;
+   private ContactInfoDaoInterface contactDao;
 
    @Autowired
-   private RolesDaoInterface r;
+   private RolesDaoInterface roleDao;
 
    @Autowired
-   private PersonRolesDaoInterface pR;
+   private PersonRolesDaoInterface personRoleDao;
 
    @Autowired
    private UserDaoInterface uD;
@@ -66,12 +67,15 @@ public class BusinessLogicService {
 
    public BusinessLogicService() {}
  
-   public BusinessLogicService(PersonDaoInterface p, ContactInfoDaoInterface c, RolesDaoInterface r, PersonRolesDaoInterface pR
+   public BusinessLogicService(PersonDaoInterface personDao
+                               ,ContactInfoDaoInterface contactDao 
+                               ,RolesDaoInterface roleDao
+                               ,PersonRolesDaoInterface personRoleDao
                                ,UserDaoInterface uD) {
-      this.p = p;
-      this.c = c;
-      this.r = r;
-      this.pR = pR;
+      this.personDao = personDao;
+      this.contactDao = contactDao;
+      this.roleDao = roleDao;
+      this.personRoleDao = personRoleDao;
       this.uD = uD;
    }
 
@@ -106,28 +110,28 @@ public class BusinessLogicService {
    }
 
    public void savePersonEntity(Person person) {
-      p.save(person);
+      personDao.save(person);
    }
 
    public boolean checkIfEntityExist(int id) {
-      if(p.getPerson(id) != null) { return true; }
-      else if(p.getPerson(id) == null) { 
+      if(personDao.getPerson(id) != null) { return true; }
+      else if(personDao.getPerson(id) == null) { 
          return false; 
       }
       return false;
    }
 
    public boolean checkIfEntityRoleExist(int id) {
-      if(r.getRole(id) != null) { return true; }
-      else if(r.getRole(id) == null) { 
+      if(roleDao.getRole(id) != null) { return true; }
+      else if(roleDao.getRole(id) == null) { 
          return false; 
       }
       return false;
    }
 
    public boolean checkIfEntityContactInfoExist(int id) {
-      if(c.getContactInfo(id) != null) { return true; }
-      else if(c.getContactInfo(id) == null) { 
+      if(contactDao.getContactInfo(id) != null) { return true; }
+      else if(contactDao.getContactInfo(id) == null) { 
          return false; 
       }
       return false;
@@ -136,8 +140,8 @@ public class BusinessLogicService {
    public boolean checkIfEntityContactInfoExist(String id, String id2) {
       int ID = Integer.parseInt(id);
       int ID2 = Integer.parseInt(id2);
-      if(c.getContactInfo(ID,ID2) != null) { return true; }
-      else if(c.getContactInfo(ID,ID2) == null) { 
+      if(contactDao.getContactInfo(ID,ID2) != null) { return true; }
+      else if(contactDao.getContactInfo(ID,ID2) == null) { 
          System.out.println("Error: Contact Info with id " + id + " has not been found for this person");
          return false; 
       }
@@ -145,28 +149,28 @@ public class BusinessLogicService {
    }
 
    public Person getPersonEntity(int id) {
-      Person person = p.getPerson(id);
+      Person person = personDao.getPerson(id);
 
       return person;
    }
 
    public List findPerson(String firstName, String lastName) {
-      List<Person> persons = p.find(firstName,lastName);
+      List<Person> persons = personDao.find(firstName,lastName);
 
       return persons;
    }
 
    public void deletePersonEntity(int id) {
-      p.delete(id);         
+      personDao.delete(id);         
    }
 
    
    public void updatePersonEntity(int id, Person person) {
-      p.update(id,person);
+      personDao.update(id,person);
    }
 
    public ContactInfo getContactInfoEntity(int id) {
-      ContactInfo ci = c.getContactInfo(id);
+      ContactInfo ci = contactDao.getContactInfo(id);
 
       return ci;
    }
@@ -174,90 +178,90 @@ public class BusinessLogicService {
    public ContactInfo getContactInfoEntity(String id, String id2) {
       int ID = Integer.parseInt(id);
       int ID2 = Integer.parseInt(id2);
-      ContactInfo ci = c.getContactInfo(ID,ID2);
+      ContactInfo ci = contactDao.getContactInfo(ID,ID2);
 
       return ci;
    }
 
    public void updateContactInfoEntity(int id, String update) {
-      c.update(id,update);
+      contactDao.update(id,update);
    }
  
    public void deleteContactInfoEntity(int id) {
-      c.delete(id);
+      contactDao.delete(id);
    }
 
    public void addContactToPerson(int id, ContactInfo ci) {
-      p.addContact(id,ci);    
+      personDao.addContact(id,ci);    
    }
 
    public void addRoleToPerson(int id, Role role) {
-      p.addRole(id,role);
+      personDao.addRole(id,role);
    }
 
    public void deleteRoleToPerson(int id, int id2) {
-      p.deleteRole(id,id2);
+      personDao.deleteRole(id,id2);
    }
 
    public Role getRoleEntity(int id) {
-      Role role = r.getRole(id);
+      Role role = roleDao.getRole(id);
 
       return role;
    }
 
    public void saveRoleEntity(String role) {
-      r.save(role);
+      roleDao.save(role);
    }
 
    public void updateRoleEntity(int id, String update) {
-      r.update(id,update);
+      roleDao.update(id,update);
    }
 
    public void deleteRoleEntity(int id) {
-      r.delete(id);
+      roleDao.delete(id);
    }
 
 
    public void listPersons(int choice) {
-      List<Person> persons = p.listPersons(choice);
+      List<Person> persons = personDao.listPersons(choice);
       this._persons = persons;
    }  
 
    public List listRoles() {
-      List<Role> roles = r.listRoles();
+      List<Role> roles = roleDao.listRoles();
 
       return roles;   
    }
 
    public List listPersonRoles() {
-      List<PersonRoles> personRoles = pR.listPersonRoles();
+      List<PersonRoles> personRoles = personRoleDao.listPersonRoles();
 
       return personRoles;
    }
 
    public List listContactInfo() {
-      List<ContactInfo> cinfos = c.listContactInfo();
+      List<ContactInfo> cinfos = contactDao.listContactInfo();
 
       return cinfos;
    }
 
    public List listContactInfo(int id) {
-      List<ContactInfo> cinfos = c.listContactInfo(id);
+      List<ContactInfo> cinfos = contactDao.listContactInfo(id);
                  
       return cinfos;
    }
 
    public List getRoleOfPerson(int id) {    
-      List<PersonRoles> personRoles = pR.getRolesAssociatedWithPerson(id);
+      List<PersonRoles> personRoles = personRoleDao.getRolesAssociatedWithPerson(id);
       return personRoles;
    }
 
    public Person searchPersonEntity(int ID) {
-      Person person = p.getPerson(ID);
-      List<ContactInfo> cinfos = c.listContactInfo();
+      Person person = personDao.getPerson(ID);
+      List<ContactInfo> cinfos = contactDao.listContactInfo();
       cinfos.stream();
-      cinfos = cinfos.stream().filter(p -> p.getPerson().getId() == ID).collect(Collectors.toList());
-      List<PersonRoles> personRoles = pR.getRolesAssociatedWithPerson(ID);
+      cinfos = cinfos.stream().filter(personDao -> personDao.getPerson().getId() == ID).collect(Collectors.toList());
+      List<PersonRoles> personRoles = personRoleDao.getRolesAssociatedWithPerson(ID);
 
       return person;
    }

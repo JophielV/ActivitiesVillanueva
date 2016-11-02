@@ -57,8 +57,10 @@ public class PersonRoleController {
         
         Person person = service.getPersonEntity(id);
         List<Role> roles = service.listRoles();
+        int rolesCount = roles.size();
         model.addObject("person",person);
         model.addObject("roles",roles);
+        model.addObject("rolesCount", rolesCount);
         model.setViewName("addroletoperson");   
        
         return model;

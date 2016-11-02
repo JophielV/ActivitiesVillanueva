@@ -6,16 +6,16 @@ import javax.servlet.ServletRegistration;
 import org.springframework.web.WebApplicationInitializer;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
 import org.springframework.web.servlet.DispatcherServlet;
-import com.config.DataWiringConfig;
-import com.config.ClassWiringConfig;
+import com.config.MainConfig;
+import java.util.Properties;
+import java.io.InputStream;
  
 public class SpringWebAppInitializer implements WebApplicationInitializer {
  
     @Override
     public void onStartup(ServletContext servletContext) throws ServletException {
         AnnotationConfigWebApplicationContext appContext = new AnnotationConfigWebApplicationContext();
-        appContext.register(DataWiringConfig.class);
-        appContext.register(ClassWiringConfig.class);
+        appContext.register(MainConfig.class);
          
         ServletRegistration.Dynamic dispatcher = servletContext.addServlet(
                 "SpringDispatcher", new DispatcherServlet(appContext));

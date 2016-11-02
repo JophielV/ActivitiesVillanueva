@@ -83,15 +83,14 @@
        </div>
      </center>
      
-    
+    <c:if test="${pageContext.request.isUserInRole('ROLE_ADMIN')}">
     <a href="/app/Role/create"><button class="btn btn-primary"><span class="glyphicon glyphicon-share"></span>Create Role</button></a>
-
+    </c:if>
   
    <table class="table table-hover">
         <thead>
             <tr>
                 
-                <th>Role Id</th>
                 <th>Role Name</th>
                 <c:if test="${pageContext.request.isUserInRole('ROLE_ADMIN')}"><th>Actions</th></c:if>
             </tr>
@@ -99,7 +98,6 @@
         <tbody>
             <c:forEach var="role" items="${roles}">
                 <tr>
-                    <td>${role.getId()}</td>
                     <td>${role.getRoleName()}</td>
                     <c:if test="${pageContext.request.isUserInRole('ROLE_ADMIN')}">
                     <td>

@@ -133,7 +133,7 @@
         <div class="form-group ">
            <form:label path="gwa" cssClass="col-xs-2 control-label">GWA:</form:label>
               <div class="col-xs-3">
-                 <form:input path="gwa" cssClass="form-control" placeholder="1.0 to 5.0" pattern="^[+-]?\d+(\.\d+)?$" required="required"></form:input>
+                 <form:input path="gwa" cssClass="form-control" placeholder="1.0 to 5.0" pattern="^\d+(\.\d+)?$" required="required"></form:input>
               </div>
         </div>
         <div class="form-group ">

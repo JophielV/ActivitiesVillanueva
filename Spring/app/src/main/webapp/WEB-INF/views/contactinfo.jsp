@@ -89,22 +89,18 @@
    <table class="table table-hover">
         <thead>
             <tr>
-                <th>Contact Id</th>
                 <th>Type</th>
                 <th>Information</th>
                 <th>Name</th>
-                <th>Person Id</th>
                 <c:if test="${pageContext.request.isUserInRole('ROLE_ADMIN')}"><th>Actions</th></c:if>
             </tr>
         </thead>
         <tbody>
            <c:forEach var="contact" items="${contacts}">
                 <tr>
-                    <td>${contact.getId()}</td>
                     <td>${contact.getType()}</td>
                     <td>${contact.getInformation()}</td>
                     <td>${contact.getPerson().getName()}</td>
-                    <td>${contact.getPerson().getId()}</td>
                     <c:if test="${pageContext.request.isUserInRole('ROLE_ADMIN')}">
                     <td>
                        <a href="<c:url value='/ContactInfo/update/${contact.getId()}' />"><button class="btn btn-info btn-xs"><span class="glyphicon glyphicon-pencil"></span>&nbsp;&nbsp;Update</button></a>

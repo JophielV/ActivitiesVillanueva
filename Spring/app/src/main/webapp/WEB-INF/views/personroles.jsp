@@ -88,10 +88,8 @@
    <table class="table table-hover">
         <thead>
             <tr>       
-                <th>Role Id</th>
                 <th>Role Name</th>
                 <th>Person Name</th>
-                <th>Person Id</th>
                 <c:if test="${pageContext.request.isUserInRole('ROLE_ADMIN')}"><th>Action</th></c:if>
             </tr>
         </thead>
@@ -99,10 +97,8 @@
             <c:forEach var="personRole" items="${personRoles}">
                 
                 <tr>
-                    <td>${personRole.getPersonRole().getRoleId()}</td>
                     <td>${service.getRoleEntity(personRole.getPersonRole().getRoleId()).getRoleName()}</td>
                     <td>${service.getPersonEntity(personRole.getPersonRole().getPersonId()).getName()}</td>
-                    <td>${personRole.getPersonRole().getPersonId()}</td>
                     <c:if test="${pageContext.request.isUserInRole('ROLE_ADMIN')}">
                     <td>
                        <a href="<c:url value='/PersonRole/delete/${personRole.getPersonRole().getPersonId()}/${personRole.getPersonRole().getRoleId()}' />"><button class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span>&nbsp;&nbsp;Delete</button></a>

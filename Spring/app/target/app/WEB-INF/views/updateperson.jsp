@@ -135,7 +135,7 @@
         <div class="form-group ">
            <form:label path="gwa" cssClass="col-xs-2 control-label">GWA:</form:label>
               <div class="col-xs-3">
-                 <form:input path="gwa" cssClass="form-control" value="${person.getGwa()}" required="required"></form:input>
+                 <form:input path="gwa" cssClass="form-control" value="${person.getGwa()}" pattern="^\d+(\.\d+)?$" required="required"></form:input>
               </div>
         </div>
         <div class="form-group ">
@@ -168,7 +168,6 @@
         <table class="table table-hover">
         <thead>
             <tr>
-                <th>Contact Id</th>
                 <th>Type</th>
                 <th>Information</th>
                 <th>Name</th>
@@ -178,7 +177,6 @@
         <tbody>
            <c:forEach var="contact" items="${contacts}">
                 <tr>
-                    <td>${contact.getId()}</td>
                     <td>${contact.getType()}</td>
                     <td>${contact.getInformation()}</td>
                     <td>${contact.getPerson().getName()}</td>
@@ -197,7 +195,6 @@
         <table class="table table-hover">
         <thead>
             <tr>
-                <th>Role Id</th>
                 <th>Role Name</th>
                 <th>Action</th>
             </tr>
@@ -205,7 +202,6 @@
         <tbody>
            <c:forEach var="role" items="${roles}">
                 <tr>
-                    <td>${role.getPersonRole().getRoleId()}</td>
                     <td>${service.getRoleEntity(role.getPersonRole().getRoleId()).getRoleName()}</td>
                     <td>
                       <a href="<c:url value='/PersonRole/delete/${person.getId()}/${role.getPersonRole().getRoleId()}' />"><button class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span>&nbsp;&nbsp;Delete</button></a>

@@ -89,7 +89,6 @@
    <table class="table table-hover">
         <thead>
             <tr>
-                <th><a href="/app/Person/">Person Id</a></th>
                 <th><a href="/app/Person/i4">Name</a></th>
                 <th>Address</th>
                 <th>Birthday</th>
@@ -103,7 +102,6 @@
             
             <c:forEach var="person" items="${persons}">
                 <tr>
-                    <td>${person.getId()}</td>
                     <td>${person.getName()}</td>
                     <td>${person.getAddress()}</td>
                     <td>${person.getBirthday()}</td>

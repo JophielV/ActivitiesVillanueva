@@ -6,6 +6,7 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <html>
 <head>
+    <title>Add Person Role</title>
     <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/bootstrap-theme.min.css">
     <script type="text/javascript" src="/js/bootstrap.min.js"></script>
@@ -53,7 +54,10 @@
             </c:forEach>
         </tbody>
     </table>
-
+      <c:set var="rolesCount" value="${rolesCount}"/>
+      <c:choose> 
+      <c:when test="${rolesCount == 0}">No roles yet. Create a Role first.</c:when>
+      <c:otherwise>                       
       <form class="form-horizontal" method="post" action="/app/PersonRole/save">
          <div class="form-group ">
            <input type="hidden" name="personId" class="form-control" value="${person.getId()}" required> 
@@ -72,6 +76,8 @@
             </div>
         </div>
     </form>
+    </c:otherwise>
+    </c:choose>
    </div>
 </body>
 
