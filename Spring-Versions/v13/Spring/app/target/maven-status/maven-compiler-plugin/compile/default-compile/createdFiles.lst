@@ -1,0 +1,7 @@
+com/controller/RoleController.class
+com/config/core/SpringWebAppInitializer.class
+com/controller/ContactInfoController.class
+com/controller/MainController.class
+com/controller/PersonController.class
+com/controller/PersonRoleController.class
+com/config/core/SpringSecurityInitializer.class
